@@ -5,8 +5,10 @@
 #include <curl/curl.h>
  
 struct MemoryStruct {
+
   char *memory;
   size_t size;
+  
 };
 
 FILE * temp = NULL;
@@ -21,9 +23,10 @@ int main(void)
 {
   CURL *curl_handle;
   CURLcode res;
-  char url[100];
-  char word[10000];
-  strcpy(url,"http://porterplainte.info/carte-complete-police.php?PHPSESSID=n7kmuake6b1juu3or5d73493b2");
+  char url[100]={};
+  char word[1000];
+  int opened = 0;
+  strcpy(url,"http://porterplainte.info/carte-complete-police.php");
   struct MemoryStruct chunk;
   temp = fopen("temp.txt","w");
  
@@ -65,34 +68,68 @@ int main(void)
      */ 
     printf("%lu bytes retrieved\n", (long)chunk.size);
   }
+  
   int i = 0;
   printf("\n======== \nTaille du chunk : %zu\n========\n",chunk.size);
+  
+  //Ecrit dans temp le code HTML brute
   for (i = 0 ; i < chunk.size ; i++){
   	fprintf(temp,"%c",chunk.memory[i]);
   }
-  fclose(temp);
-  parsed = fopen("temp2.txt","w");
-  temp = fopen("temp.txt","r");
-  while(!strcmp(word,"</body>")){
-  	printf("ERREUR");
-  	if(!strcmp(word,"<li>")){
-  		fscanf(temp,"%s",word);
-  		while(strcmp(word,"</li>") && (strcmp(word,"</body>")) && (strcmp(word,"</BODY>"))){
-  			if(!strcmp(word,"</i></li>")) strcpy(word,"\n");
-  			if(!strcmp(word,"<li><h3>Adresse")) strcpy(word,"Adresse");
-  			fprintf(parsed,"%s ",word);
-  			fscanf(temp,"%s",word);
-  		}
+  
+  fclose(temp); //Ferme le fichier temp
+  
+  parsed = fopen("temp2.txt","w"); //Sauver le code des lignes <li></li>
+  temp = fopen("temp.txt","r"); //Ouvrir le fichier HTML brute
+  
+  i=0; //
+  
+  //fscanf(temp, "%*s<%s>", word)
+  
+  char capture[10];
+  //int n = 0;
+  
+  do {
+  
+  	
+  	fscanf(temp,"%9c", capture);
+  	capture[9] = '\0';
+  	//n++;
+  	
+  	//printf("Soyons fou\n");
+  	
+  	
+  	sscanf(capture, "<%s>", word);
+  	printf("DEBUG : %s %s",word,capture);
+  
+  	//printf("%i", i);
+  	//fscanf(temp, "%", word);
+  	
+  	if(strcmp(word,"li") == 0){
+  		i = 1;
   	}
-  	fscanf(temp,"%04s",word);
+  		
+  } while (i != 1);
+  
+  while (i == 1) {
+  
+  	if(!fscanf(temp,"%s</li>",word)) break;
+  	
+  	fprintf(parsed,"%s",word);
+  	i--;
+  	
+  	printf("\n -- %i : %s",i,word);
+  	
   }
+  
+  fprintf(parsed,"%c",'%');
   fclose(temp);
   fclose(parsed);
   parsed=fopen("temp2.txt","r");
   final=fopen("commissariat.txt","w");
-  int opened = 0;
   char key = 0;
-  while(feof(parsed)){
+  opened=0;
+  while(key!='%'){
   	fscanf(parsed,"%c",&key);
   	if(key=='<') opened = 1;
   	else if(key=='>') opened = 0;
@@ -101,6 +138,8 @@ int main(void)
   }
   fclose(parsed);
   fclose(final);
+  //
+  
   /* cleanup curl stuff */ 
   curl_easy_cleanup(curl_handle); 
   if(chunk.memory) free(chunk.memory); 
