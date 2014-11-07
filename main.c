@@ -73,7 +73,7 @@ int main(void)
   printf("\n======== \nTaille du chunk : %zu\n========\n",chunk.size);
   
   //Ecrit dans temp le code HTML brute
-  for (i = 0 ; i < chunk.size ; i++){
+  for (i = 0 ; i < (chunk.size) ; i++){
   	fprintf(temp,"%c",chunk.memory[i]);
   }
   
