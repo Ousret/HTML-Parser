@@ -1,3 +1,14 @@
+/**
+ * \file parser.c
+ * \brief Funtions using cURL in order to extract data from HTML file
+ * \author TAHRI Ahmed, SIMON Jérémy
+ * \version 0.1
+ * \date 8th november 2014
+ *
+ * Useful func. to parse and download HTML data.
+ *
+ */
+ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

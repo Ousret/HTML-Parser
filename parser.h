@@ -1,3 +1,12 @@
+/**
+ * \file parser.h
+ * \brief Header for our parser
+ * \author TAHRI Ahmed, SIMON Jérémy
+ * \version 0.1
+ * \date 8th november 2014
+ *
+ */
+
 /* F Defs */
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp);
 char * stj_savehtml(char url[256], char dest_file[256]);

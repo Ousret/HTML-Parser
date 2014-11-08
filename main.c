@@ -1,3 +1,14 @@
+/**
+ * \file main.c
+ * \brief Parser processing and output result OR get input to process
+ * \author TAHRI Ahmed, SIMON Jérémy
+ * \version 0.1
+ * \date 8th november 2014
+ *
+ * Handle request and process them in order to send the result to stdout
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
