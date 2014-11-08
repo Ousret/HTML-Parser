@@ -116,7 +116,7 @@ char * stj_savehtml(char url[256], char dest_file[256]) {
 char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 
 	unsigned int occ_balise = 0;
-	int i = 0, stage = 0;
+	int i = 0, stage = 0, j = 0;
 
 	int special = 0; //Difference between 0 <div> and 1 <div style....>
 
@@ -223,7 +223,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	
 	balise[1] = '/'; 
 	
-	fprintf(stdout, "We search for: %s\n", balise);
+	//fprintf(stdout, "We search for: %s\n", balise);
 	
 	// While we can read some char in the input file
 	while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
@@ -237,7 +237,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 			
 				stream_last = stream_state;
 				stage++;
-				fprintf(stdout, "Stage init %c -- Stage %i\n", read_c_tmp, stage);
+				//fprintf(stdout, "Stage init %c -- Stage %i\n", read_c_tmp, stage);
 				
 			}else{
 			
@@ -245,12 +245,12 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 					
 					stream_last = stream_state;
 					stage++;
-					fprintf(stdout, "Stage +1 %c -- Stage %i\n", read_c_tmp, stage);
+					//fprintf(stdout, "Stage +1 %c -- Stage %i\n", read_c_tmp, stage);
 
 				}else{
 			
 					stage = 0;
-					fprintf(stdout, "Stage reset %c -- Stage %i\n", read_c_tmp, stage);
+					//fprintf(stdout, "Stage reset %c -- Stage %i\n", read_c_tmp, stage);
 
 				}
 			
@@ -281,11 +281,13 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	
 	if (strlen(capture) > 0) {
 		
-		/*for (i = sizeof(capture); i > (sizeof(capture) - strlen(balise)); i--) {
+		//fprintf(stdout, "i: %i -- strlen balise: %i\n", i, strlen(balise));
+		
+		for (j = (i - strlen(balise))+1; j < i; j++) {
 			
-			capture[i] = 0;
+			capture[j] = 0;
 			
-		}*/
+		}
 		
 		fclose(src_html_input);
 		return capture;
