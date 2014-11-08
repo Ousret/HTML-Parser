@@ -63,7 +63,7 @@ int main(int argc, char * argv[])
 		printf("| |              | | |              | | |              | |\n");
 		printf("| '--------------' | '--------------' | '--------------' |\n");
 		printf(" '----------------' '----------------' '----------------' \n\n");
-		printf("\t Autors: TAHRI Ahmed@Ousret; SIMON Jeremy@Jokoast\n");
+		printf("\t Authors: TAHRI Ahmed@Ousret; SIMON Jeremy@Jokoast\n");
 		printf("\t Project: Free HTML Parser in C\n");
 		printf("\t Link: http://www.github.com/Jokoast for new release\n\n");
 		printf("\t Command: ./htmlparser 'url' '<balise>' indice\n\n");
