@@ -12,4 +12,3 @@ extern FILE * final;
 
 extern CURL *curl_handle;
 extern CURLcode res;
-extern struct MemoryStruct chunk;

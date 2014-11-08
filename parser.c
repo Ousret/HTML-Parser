@@ -9,8 +9,7 @@
 void stj_cleanup() {
 
 	/* cleanup curl stuff */ 
-	curl_easy_cleanup(curl_handle); 
-	if(chunk.memory) free(chunk.memory); 
+	curl_easy_cleanup(curl_handle);  
 	/* we're done with libcurl, so clean it up */ 
 	curl_global_cleanup();
 	
@@ -18,9 +17,8 @@ void stj_cleanup() {
 
 char * stj_savehtml(char url[256], char dest_file[256]) {
 
-	//char url[100]={};
-	//char word[100];
-	//int opened = 0;
+
+	struct MemoryStruct chunk;
 	//strcpy(url,"http://porterplainte.info/carte-complete-police.php");
 	FILE * tmp_html = NULL;
 	
@@ -84,11 +82,12 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 
 	unsigned int occ_balise = 0;
 	int i = 0, stage = 0;
-	
-	//char * read_tmp = malloc(1);
+
+	long stream_state = 0, stream_last = 0;
+
 	char read_c_tmp = 0;
 	
-	char capture[512];
+	char * capture = malloc(1);
 	
 	FILE * src_html_input = NULL;
 	
@@ -96,11 +95,36 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	
 	if (!src_html_input) return "Unable to read input html";
 	
-	while (fscanf(src_html_input, "%c", read_c_tmp) == 1) {
+	while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
 	
-		if (read_c_tmp == balise[stage]) stage++;
+		stream_state++; //We do have read one char.. counting..
 		
-		if (stage == strlen(balise)) {
+		if (read_c_tmp == balise[stage]) {
+			
+			if (stage == 0) {
+			
+				stream_last = stream_state;
+				stage++;
+				fprintf(stdout, "Stage init %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+				
+			}else{
+			
+				if (stream_last == (stream_state-1)) {
+					stream_last = stream_state;
+					stage++;
+					fprintf(stdout, "Stage +1 %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+				}else{
+			
+					stage = 0;
+					fprintf(stdout, "Stage reset %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+				}	
+			
+			}
+			
+		}
+		
+		
+		if (stage == (strlen(balise)-1)) {
 			occ_balise++;
 			
 			if (occ_balise == indice) {
@@ -111,34 +135,88 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 			
 		}
 		
+		
+	}
+	//strcpy(url,"http://porterplainte.info/carte-complete-police.php");
+	
+	// avoid some common problems with this, website change from one to another one..
+	// some use for exemple <li>, other <li style="sample" ... >
+	// Hope you could understood why ^^
+	
+	while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
+		
+		stream_state++;
+		
+		if (read_c_tmp == '>') {
+			fprintf(stdout, "Complete search %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+			break;
+		}else{
+			fprintf(stdout, "Complete search %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+		}
+	
 	}
 	
-	while (fscanf(src_html_input, "%c", read_c_tmp) == 1) {
+	//Reset stage because we need to find the end balise
+	stage = 0;
 	
-		if (read_c_tmp != '<') {
+	//Need to transform <li> to </li> for exemple
+	for (i = strlen(balise)+1; i > 0; i--) {
+	
+		balise[i+1] = balise[i];
 		
-			//realloc(capture, sizeof(capture)+2);
-			capture[i] = read_c_tmp;
-			capture[i+1] = '\0';
+	}
+	
+	balise[1] = '/'; 
+	
+	// While we can read some char in the input file
+	while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
+	
+		stream_state++; //We do have read one char.. counting..
 		
-			i++;
-		
-		}else{
-		
-			break;
+		//Checking if we hit the end
+		if (read_c_tmp == balise[stage]) {
+			
+			if (stage == 0) {
+			
+				stream_last = stream_state;
+				stage++;
+				
+			}else{
+			
+				if (stream_last == (stream_state-1)) {
+					
+					stream_last = stream_state;
+					stage++;
+
+				}else{
+			
+					stage = 0;
+
+				}	
+			
+			}
 			
 		}
+		
+		if (stage == strlen(balise)) break; //If we find all char, if we match balise var
+		
+		realloc(capture, sizeof(capture)+1); //We need to expend the capture var in order to write more..
+		
+		capture[i] = read_c_tmp;
+		capture[i+1] = '\0';
+		
+		i++;
 		
 	}
 	
 	if (strlen(capture) > 0) {
-	
+		
 		return capture;
-	
+		
 	}else{
-	
-		return "EOF";
-	
+		
+		return "Nothing found here, end of file.. Sorry !";
+		
 	}
 
 }
