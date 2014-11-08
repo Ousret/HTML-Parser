@@ -95,7 +95,7 @@ int main(int argc, char * argv[])
 		printf("<You> What occurrence ? :");
 		scanf("%i", &needed_occ);
 		
-		
+		stj_savehtml(url, "dest.html");
 		printf("<Us> What we found:\n> %s\n", stj_getbalisecontent("dest.html", balise_search, needed_occ));
 	}
 	
