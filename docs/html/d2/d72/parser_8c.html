@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>File&#160;List</span></a></li>
+      <li><a href="../../globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -69,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -97,15 +98,15 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a43184a1eccd57fb94c9c74d0b51b093a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43184a1eccd57fb94c9c74d0b51b093a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>stj_cleanup</b> ()</td></tr>
+<tr class="memitem:a43184a1eccd57fb94c9c74d0b51b093a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a43184a1eccd57fb94c9c74d0b51b093a">stj_cleanup</a> ()</td></tr>
+<tr class="memdesc:a43184a1eccd57fb94c9c74d0b51b093a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free cURL from his duty and close the program properly.  <a href="#a43184a1eccd57fb94c9c74d0b51b093a">More...</a><br /></td></tr>
 <tr class="separator:a43184a1eccd57fb94c9c74d0b51b093a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac605aaff6474f3489cbf5c2189f9362d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac605aaff6474f3489cbf5c2189f9362d"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>stj_savehtml</b> (char url[256], char dest_file[256])</td></tr>
-<tr class="separator:ac605aaff6474f3489cbf5c2189f9362d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44fefa8311304cfb3a6b0753224196f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44fefa8311304cfb3a6b0753224196f0"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>stj_getbalisecontent</b> (char *src_html, char balise[50], int indice)</td></tr>
-<tr class="separator:a44fefa8311304cfb3a6b0753224196f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7cca7d10cc26345b22094a66a5bc019"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#aa7cca7d10cc26345b22094a66a5bc019">stj_savehtml</a> (char url[256], char dest_file[256])</td></tr>
+<tr class="memdesc:aa7cca7d10cc26345b22094a66a5bc019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get external HTML page and save the dump to local file.  <a href="#aa7cca7d10cc26345b22094a66a5bc019">More...</a><br /></td></tr>
+<tr class="separator:aa7cca7d10cc26345b22094a66a5bc019"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74828c9aac7ada734e25a6fa57d55a42"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d72/parser_8c.html#a74828c9aac7ada734e25a6fa57d55a42">stj_getbalisecontent</a> (char *src_html, char balise[50], int indice)</td></tr>
+<tr class="memdesc:a74828c9aac7ada734e25a6fa57d55a42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the data inside the html balise.  <a href="#a74828c9aac7ada734e25a6fa57d55a42">More...</a><br /></td></tr>
+<tr class="separator:a74828c9aac7ada734e25a6fa57d55a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Funtions using cURL in order to extract data from HTML file. </p>
@@ -113,10 +114,108 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>stj_getbaliseconten
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>8th november 2014</dd></dl>
 <p>Useful func. to parse and download HTML data. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a43184a1eccd57fb94c9c74d0b51b093a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void stj_cleanup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free cURL from his duty and close the program properly. </p>
+<dl class="section return"><dt>Returns</dt><dd>Nothing </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a74828c9aac7ada734e25a6fa57d55a42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * stj_getbalisecontent </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>src_html</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>balise</em>[50], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indice</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the data inside the html balise. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src_html</td><td>Name of the file to parse </td></tr>
+    <tr><td class="paramname">balise</td><td>ex: , &lt;head&gt;, etc.. </td></tr>
+    <tr><td class="paramname">indice</td><td>Parse until we found n occurences and read it </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Return data inside the balise at nth indice </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa7cca7d10cc26345b22094a66a5bc019"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * stj_savehtml </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>url</em>[256], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dest_file</em>[256]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get external HTML page and save the dump to local file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">url</td><td>The link to the web page </td></tr>
+    <tr><td class="paramname">dest_file</td><td>Name of the dest file for the download </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Return what happened during the download and if errors occurs. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 8 2014 21:05:13 for Free C HTML Parser by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 8 2014 21:26:57 for Free C HTML Parser by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

@@ -13,11 +13,18 @@ char * stj_savehtml(char url[256], char dest_file[256]);
 char * stj_getbalisecontent(char * src_html, char balise[50], int indice);
 void stj_cleanup();
 
-struct MemoryStruct {char *memory; size_t size; };
+/**
+ * \struct MemoryStruct
+ * \brief Contain downloaded data
+ *
+ * Just in order to keep downloaded data during download ^^
+ */
+struct MemoryStruct {
+	char *memory; /*!< HTML data downloaded in there */
+	size_t size; /*!< The size of memory var */
+};
 
 extern FILE * temp;
-extern FILE * parsed;
-extern FILE * final;
 
 extern CURL *curl_handle;
 extern CURLcode res;

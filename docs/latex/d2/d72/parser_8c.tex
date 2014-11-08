@@ -14,15 +14,12 @@ Funtions using c\+U\+R\+L in order to extract data from H\+T\+M\+L file.
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{parser_8c_a43184a1eccd57fb94c9c74d0b51b093a}{void {\bfseries stj\+\_\+cleanup} ()}\label{parser_8c_a43184a1eccd57fb94c9c74d0b51b093a}
-
-\item 
-\hypertarget{parser_8c_ac605aaff6474f3489cbf5c2189f9362d}{char $\ast$ {\bfseries stj\+\_\+savehtml} (char url\mbox{[}256\mbox{]}, char dest\+\_\+file\mbox{[}256\mbox{]})}\label{parser_8c_ac605aaff6474f3489cbf5c2189f9362d}
-
-\item 
-\hypertarget{parser_8c_a44fefa8311304cfb3a6b0753224196f0}{char $\ast$ {\bfseries stj\+\_\+getbalisecontent} (char $\ast$src\+\_\+html, char balise\mbox{[}50\mbox{]}, int indice)}\label{parser_8c_a44fefa8311304cfb3a6b0753224196f0}
-
-\end{DoxyCompactItemize}
+void \hyperlink{parser_8c_a43184a1eccd57fb94c9c74d0b51b093a}{stj\+\_\+cleanup} ()
+\begin{DoxyCompactList}\small\item\em Free c\+U\+R\+L from his duty and close the program properly. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{parser_8c_aa7cca7d10cc26345b22094a66a5bc019}{stj\+\_\+savehtml} (char url\mbox{[}256\mbox{]}, char dest\+\_\+file\mbox{[}256\mbox{]})
+\begin{DoxyCompactList}\small\item\em Get external H\+T\+M\+L page and save the dump to local file. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{parser_8c_a74828c9aac7ada734e25a6fa57d55a42}{stj\+\_\+getbalisecontent} (char $\ast$src\+\_\+html, char balise\mbox{[}50\mbox{]}, int indice)
+\begin{DoxyCompactList}\small\item\em Get the data inside the html balise. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -38,3 +35,66 @@ T\+A\+H\+R\+I Ahmed, S\+I\+M\+O\+N Jérémy
 8th november 2014
 \end{DoxyDate}
 Useful func. to parse and download H\+T\+M\+L data. 
+
+\subsection{Function Documentation}
+\hypertarget{parser_8c_a43184a1eccd57fb94c9c74d0b51b093a}{\index{parser.\+c@{parser.\+c}!stj\+\_\+cleanup@{stj\+\_\+cleanup}}
+\index{stj\+\_\+cleanup@{stj\+\_\+cleanup}!parser.\+c@{parser.\+c}}
+\subsubsection[{stj\+\_\+cleanup}]{\setlength{\rightskip}{0pt plus 5cm}void stj\+\_\+cleanup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{parser_8c_a43184a1eccd57fb94c9c74d0b51b093a}
+
+
+Free c\+U\+R\+L from his duty and close the program properly. 
+
+\begin{DoxyReturn}{Returns}
+Nothing 
+\end{DoxyReturn}
+\hypertarget{parser_8c_a74828c9aac7ada734e25a6fa57d55a42}{\index{parser.\+c@{parser.\+c}!stj\+\_\+getbalisecontent@{stj\+\_\+getbalisecontent}}
+\index{stj\+\_\+getbalisecontent@{stj\+\_\+getbalisecontent}!parser.\+c@{parser.\+c}}
+\subsubsection[{stj\+\_\+getbalisecontent}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ stj\+\_\+getbalisecontent (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{src\+\_\+html, }
+\item[{char}]{balise\mbox{[}50\mbox{]}, }
+\item[{int}]{indice}
+\end{DoxyParamCaption}
+)}}\label{parser_8c_a74828c9aac7ada734e25a6fa57d55a42}
+
+
+Get the data inside the html balise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em src\+\_\+html} & Name of the file to parse \\
+\hline
+{\em balise} & ex\+: , $<$head$>$, etc.. \\
+\hline
+{\em indice} & Parse until we found n occurences and read it \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return data inside the balise at nth indice 
+\end{DoxyReturn}
+\hypertarget{parser_8c_aa7cca7d10cc26345b22094a66a5bc019}{\index{parser.\+c@{parser.\+c}!stj\+\_\+savehtml@{stj\+\_\+savehtml}}
+\index{stj\+\_\+savehtml@{stj\+\_\+savehtml}!parser.\+c@{parser.\+c}}
+\subsubsection[{stj\+\_\+savehtml}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ stj\+\_\+savehtml (
+\begin{DoxyParamCaption}
+\item[{char}]{url\mbox{[}256\mbox{]}, }
+\item[{char}]{dest\+\_\+file\mbox{[}256\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{parser_8c_aa7cca7d10cc26345b22094a66a5bc019}
+
+
+Get external H\+T\+M\+L page and save the dump to local file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em url} & The link to the web page \\
+\hline
+{\em dest\+\_\+file} & Name of the dest file for the download \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return what happened during the download and if errors occurs. 
+\end{DoxyReturn}

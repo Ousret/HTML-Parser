@@ -17,6 +17,12 @@
 
 #include "parser.h"
 
+/**
+ * \fn void stj_cleanup()
+ * \brief Free cURL from his duty and close the program properly 
+ *
+ * \return Nothing
+ */
 void stj_cleanup() {
 
 	/* cleanup curl stuff */ 
@@ -25,6 +31,15 @@ void stj_cleanup() {
 	curl_global_cleanup();
 	
 }
+
+/**
+ * \fn char * stj_savehtml(char url[256], char dest_file[256])
+ * \brief Get external HTML page and save the dump to local file
+ *
+ * \param url The link to the web page
+ * \param dest_file Name of the dest file for the download
+ * \return Return what happened during the download and if errors occurs.
+ */
 
 char * stj_savehtml(char url[256], char dest_file[256]) {
 
@@ -89,15 +104,25 @@ char * stj_savehtml(char url[256], char dest_file[256]) {
 
 }
 
+/**
+ * \fn char * stj_getbalisecontent(char * src_html, char balise[50], int indice)
+ * \brief Get the data inside the html balise
+ *
+ * \param src_html Name of the file to parse
+ * \param balise ex: <li>, <head>, etc..
+ * \param indice Parse until we found n occurences and read it
+ * \return Return data inside the balise at nth indice 
+ */
 char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 
 	unsigned int occ_balise = 0;
 	int i = 0, stage = 0;
 
+	int special = 0; //Difference between 0 <div> and 1 <div style....>
+
 	long stream_state = 0, stream_last = 0;
 
-	char read_c_tmp = 0;
-	
+	char read_c_tmp = 0; 
 	char * capture = malloc(1);
 	
 	FILE * src_html_input = NULL;
@@ -116,26 +141,40 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 			
 				stream_last = stream_state;
 				stage++;
-				fprintf(stdout, "Stage init %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+				special = 0;
+				//fprintf(stdout, "Stage init %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
 				
 			}else{
 			
 				if (stream_last == (stream_state-1)) {
 					stream_last = stream_state;
 					stage++;
-					fprintf(stdout, "Stage +1 %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+					//fprintf(stdout, "Stage +1 %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
 				}else{
 			
 					stage = 0;
-					fprintf(stdout, "Stage reset %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+					//fprintf(stdout, "Stage reset %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
 				}	
 			
 			}
 			
+		}else if(read_c_tmp == ' ') { 
+		
+			if (stream_last == (stream_state-1)) {
+				special = 1;
+				stage++;
+			}else{
+				stage = 0;
+			}
+			
+		}else {
+			
+			stage = 0;
+			
 		}
 		
 		
-		if (stage == (strlen(balise)-1)) {
+		if (stage == (strlen(balise))) {
 			occ_balise++;
 			
 			if (occ_balise == indice) {
@@ -154,15 +193,20 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	// some use for exemple <li>, other <li style="sample" ... >
 	// Hope you could understood why ^^
 	
-	while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
+	if (special == 1) {
+	
+	
+		while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
 		
-		stream_state++;
+			stream_state++;
 		
-		if (read_c_tmp == '>') {
-			fprintf(stdout, "Complete search %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
-			break;
-		}else{
-			fprintf(stdout, "Complete search %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+			if (read_c_tmp == '>') {
+				//fprintf(stdout, "Complete search %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+				break;
+			}else{
+				//fprintf(stdout, "Complete search %c -- Last occ %i -- Stream %i\n", read_c_tmp, stream_last, stream_state);
+			}
+	
 		}
 	
 	}
@@ -179,6 +223,8 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	
 	balise[1] = '/'; 
 	
+	fprintf(stdout, "We search for: %s\n", balise);
+	
 	// While we can read some char in the input file
 	while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
 	
@@ -191,6 +237,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 			
 				stream_last = stream_state;
 				stage++;
+				fprintf(stdout, "Stage init %c -- Stage %i\n", read_c_tmp, stage);
 				
 			}else{
 			
@@ -198,18 +245,30 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 					
 					stream_last = stream_state;
 					stage++;
+					fprintf(stdout, "Stage +1 %c -- Stage %i\n", read_c_tmp, stage);
 
 				}else{
 			
 					stage = 0;
+					fprintf(stdout, "Stage reset %c -- Stage %i\n", read_c_tmp, stage);
 
-				}	
+				}
 			
 			}
 			
+		}else{
+		
+			//fprintf(stdout, "%c", read_c_tmp);
+			stage = 0;
+			
 		}
 		
-		if (stage == strlen(balise)) break; //If we find all char, if we match balise var
+		//If we find all char, if we match balise var
+		if (stage == strlen(balise)) {
+			
+			break;
+			
+		} 
 		
 		realloc(capture, sizeof(capture)+1); //We need to expend the capture var in order to write more..
 		
@@ -222,6 +281,13 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	
 	if (strlen(capture) > 0) {
 		
+		/*for (i = sizeof(capture); i > (sizeof(capture) - strlen(balise)); i--) {
+			
+			capture[i] = 0;
+			
+		}*/
+		
+		fclose(src_html_input);
 		return capture;
 		
 	}else{
@@ -232,7 +298,12 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 
 }
 
-
+/**
+ * \fn static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
+ * \brief Expend and write call back into memory
+ *
+ * \return Return the size after modifications 
+ */
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp) {
   
 	size_t realsize = size * nmemb;

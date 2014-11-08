@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>File&#160;List</span></a></li>
+      <li><a href="../../globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -70,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -87,23 +88,31 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <a href="../../d5/d36/parser_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/* F Defs */</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">static</span> <span class="keywordtype">size_t</span> WriteMemoryCallback(<span class="keywordtype">void</span> *contents, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> nmemb, <span class="keywordtype">void</span> *userp);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">char</span> * stj_savehtml(<span class="keywordtype">char</span> url[256], <span class="keywordtype">char</span> dest_file[256]);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">char</span> * stj_getbalisecontent(<span class="keywordtype">char</span> * src_html, <span class="keywordtype">char</span> balise[50], <span class="keywordtype">int</span> indice);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> stj_cleanup();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">char</span> * <a class="code" href="../../d5/d36/parser_8h.html#ac605aaff6474f3489cbf5c2189f9362d">stj_savehtml</a>(<span class="keywordtype">char</span> url[256], <span class="keywordtype">char</span> dest_file[256]);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">char</span> * <a class="code" href="../../d5/d36/parser_8h.html#a44fefa8311304cfb3a6b0753224196f0">stj_getbalisecontent</a>(<span class="keywordtype">char</span> * src_html, <span class="keywordtype">char</span> balise[50], <span class="keywordtype">int</span> indice);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d36/parser_8h.html#a43184a1eccd57fb94c9c74d0b51b093a">stj_cleanup</a>();</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="../../d4/d01/struct_memory_struct.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="../../d4/d01/struct_memory_struct.html">MemoryStruct</a> {<span class="keywordtype">char</span> *memory; <span class="keywordtype">size_t</span> size; };</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">extern</span> FILE * temp;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">extern</span> FILE * parsed;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">extern</span> FILE * <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">extern</span> CURL *curl_handle;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">extern</span> CURLcode res;</div>
-<div class="ttc" id="struct_memory_struct_html"><div class="ttname"><a href="../../d4/d01/struct_memory_struct.html">MemoryStruct</a></div><div class="ttdef"><b>Definition:</b> parser.h:16</div></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="../../d4/d01/struct_memory_struct.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="../../d4/d01/struct_memory_struct.html">MemoryStruct</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="../../d4/d01/struct_memory_struct.html#a218a6fde0f367d44400542cbe523e943">   23</a></span>&#160;    <span class="keywordtype">char</span> *<a class="code" href="../../d4/d01/struct_memory_struct.html#a218a6fde0f367d44400542cbe523e943">memory</a>; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../d4/d01/struct_memory_struct.html#a79d6a7ad34b172f766c19d0846688440">   24</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="../../d4/d01/struct_memory_struct.html#a79d6a7ad34b172f766c19d0846688440">size</a>; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">extern</span> FILE * temp;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">extern</span> FILE * parsed;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">extern</span> FILE * <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">extern</span> CURL *curl_handle;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">extern</span> CURLcode res;</div>
+<div class="ttc" id="parser_8h_html_a43184a1eccd57fb94c9c74d0b51b093a"><div class="ttname"><a href="../../d5/d36/parser_8h.html#a43184a1eccd57fb94c9c74d0b51b093a">stj_cleanup</a></div><div class="ttdeci">void stj_cleanup()</div><div class="ttdoc">Free cURL from his duty and close the program properly. </div><div class="ttdef"><b>Definition:</b> parser.c:26</div></div>
+<div class="ttc" id="parser_8h_html_ac605aaff6474f3489cbf5c2189f9362d"><div class="ttname"><a href="../../d5/d36/parser_8h.html#ac605aaff6474f3489cbf5c2189f9362d">stj_savehtml</a></div><div class="ttdeci">char * stj_savehtml(char url[256], char dest_file[256])</div><div class="ttdoc">Get external HTML page and save the dump to local file. </div><div class="ttdef"><b>Definition:</b> parser.c:44</div></div>
+<div class="ttc" id="struct_memory_struct_html"><div class="ttname"><a href="../../d4/d01/struct_memory_struct.html">MemoryStruct</a></div><div class="ttdoc">Contain downloaded data. </div><div class="ttdef"><b>Definition:</b> parser.h:22</div></div>
+<div class="ttc" id="struct_memory_struct_html_a218a6fde0f367d44400542cbe523e943"><div class="ttname"><a href="../../d4/d01/struct_memory_struct.html#a218a6fde0f367d44400542cbe523e943">MemoryStruct::memory</a></div><div class="ttdeci">char * memory</div><div class="ttdef"><b>Definition:</b> parser.h:23</div></div>
+<div class="ttc" id="struct_memory_struct_html_a79d6a7ad34b172f766c19d0846688440"><div class="ttname"><a href="../../d4/d01/struct_memory_struct.html#a79d6a7ad34b172f766c19d0846688440">MemoryStruct::size</a></div><div class="ttdeci">size_t size</div><div class="ttdef"><b>Definition:</b> parser.h:24</div></div>
+<div class="ttc" id="parser_8h_html_a44fefa8311304cfb3a6b0753224196f0"><div class="ttname"><a href="../../d5/d36/parser_8h.html#a44fefa8311304cfb3a6b0753224196f0">stj_getbalisecontent</a></div><div class="ttdeci">char * stj_getbalisecontent(char *src_html, char balise[50], int indice)</div><div class="ttdoc">Get the data inside the html balise. </div><div class="ttdef"><b>Definition:</b> parser.c:116</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 8 2014 21:05:13 for Free C HTML Parser by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 8 2014 21:26:57 for Free C HTML Parser by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

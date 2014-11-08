@@ -20,6 +20,14 @@
 CURL *curl_handle;
 CURLcode res;
 
+/**
+ * \fn int main(int argc, char * argv[])
+ * \brief Get input to process parsing
+ *
+ * \param argc Number of arguments
+ * \param argv String args 
+ * \return 0 - Program went fine; -1 Something wrong
+ */
 int main(int argc, char * argv[])
 {
 	char url[256], balise_search[25];
@@ -91,7 +99,7 @@ int main(int argc, char * argv[])
 		printf("<Us> What we found:\n> %s\n", stj_getbalisecontent("dest.html", balise_search, needed_occ));
 	}
 	
-	stj_cleanup(); //Free Curl from his duty
+	//stj_cleanup(); //Free Curl from his duty
 	
 	return 0;
 }
