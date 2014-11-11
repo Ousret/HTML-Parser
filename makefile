@@ -9,7 +9,7 @@ main.o: main.c parser.h
 	$(CC) -c main.c
 	
 parser.o: parser.c parser.h
-	$(CC) -c parser.c $(CFLAGS)
+	$(CC) -c parser.c 
 
 commands.o: commands.c commands.h
 	$(CC) -c commands.c
