@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "commands.h"
+#include "includes/commands.h"
 
 void display_help(int code) {
 	

@@ -15,7 +15,7 @@
 
 #include <curl/curl.h>
 
-#include "parser.h"
+#include "includes/parser.h"
 
 CURL *curl_handle;
 CURLcode res;
@@ -103,6 +103,7 @@ char * stj_savehtml(char url[256], char dest_file[256]) {
   
 	fclose(tmp_html); //Ferme le fichier temp
 	stj_cleanup(); //Free Curl from his duty
+	
 	return msg;
 
 }

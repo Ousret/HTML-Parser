@@ -13,8 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "main.h"
-#include "commands.h"
+#include "includes/main.h"
+#include "includes/commands.h"
 
 /**
  * \fn int main(int argc, char * argv[])
