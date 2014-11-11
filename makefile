@@ -17,3 +17,6 @@ commands.o: commands.c commands.h
 clean:
 	@rm -f *.o
 	@rm $(BIN)
+
+install:
+	@cp $(BIN) /usr/bin/$(BIN)	
