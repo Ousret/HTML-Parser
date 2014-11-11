@@ -31,8 +31,49 @@ void display_help(int code) {
 	printf("\t Authors: TAHRI Ahmed@Ousret\n");
 	printf("\t Project: Free HTML Parser in C\n");
 	printf("\t Link: http://www.github.com/Ousret for new release\n\n");
-	printf("\t Command: ./htmlparser [-g, -d, -s] -u 'url' -b '<balise>' -i indice\n\n");
-	printf("\t Code: %i\n", code); //Switch code..
+	printf("\t Command: ./htmlparser [-g, -d, -s] -u 'url' -b '<balise>' -i indice\n");
+	
+	switch (code) {
+	
+		case 1:
+			printf("\t Error: Missing the url target after -u\n\n");
+			break;
+		case 2:
+			printf("\t Error: Missing the filename input after -f\n\n");
+			break;
+		case 3:
+			printf("\t Error: Missing the balise name after -b\n\n");
+			break;
+		case 4:
+			printf("\t Error: We need -b argument to parse something\n\n");
+			break;
+		case 5:
+			printf("\t Error: Missing indice number after -i\n\n");
+			break;
+		case 6:
+			printf("\t Error: Invalid indice after -i\n\n");
+			break;
+		case 7:
+			printf("\t Error: Missing the start indice after -s\n\n");
+			break;
+		case 8:
+			printf("\t Error: Invalid indice for start after -s\n\n");
+			break;
+		case 9:
+			printf("\t Error: Missing end indice after -e\n\n");
+			break;
+		case 10:
+			printf("\t Error: We need to know what indice or range do you want to parse for <balise>\n\n");
+			break;
+		case 11:
+			printf("\t Error: You missed to write the output filename after -k\n\n");
+			break;
+		default:
+			printf("\t Sample: htmlparser -u 'http://www.youtube.com' -b '<title>' -i 1\n\n");
+			break;
+			
+	}
+	
 	printf("\t -g: Get data from specific balise\n");
 	printf("\t -d: Delete specific balise\n");
 	printf("\t -i [integer]: Apply action to specific indice\n");
@@ -45,8 +86,9 @@ void display_help(int code) {
 int getcommand(int argc, char * argv[], char command, int * indice) {
 
 	int i = 0;
-	
+
 	for (i = 1; i < argc; i++) {
+		
 		if (argv[i][1] == command) {
 			*indice = i;
 			return 1;

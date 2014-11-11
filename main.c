@@ -30,9 +30,16 @@ int main(int argc, char * argv[])
 	int needed_occ = 0, local_file = 0, start_occ = 0, end_occ = 0;
 	int com_indice = 0;
 	
+	if (getcommand(argc, argv, 'h', &com_indice)) {
+	
+		display_help(0);
+		return 0;
+		
+	}
+	
 	if (getcommand(argc, argv, 'u', &com_indice)) { //Online
 		
-		if (argc < (com_indice+1)) {
+		if ((argc-1) < (com_indice+1)) {
 			display_help(1); 
 			return 1;
 		}
@@ -40,20 +47,20 @@ int main(int argc, char * argv[])
 		strcpy(url, argv[com_indice+1]);
 		
 	}else if(getcommand(argc, argv, 'f', &com_indice)) { //Offline
-	
-		if (argc < (com_indice+1)) {
+		
+		if ((argc-1) < (com_indice+1)) {
 			display_help(2); 
 			return 1;
 		}
 		
 		strcpy(file, argv[com_indice+1]);
-	
+		local_file = 1;
 	}
 	
 	//Get balise..
 	if (getcommand(argc, argv, 'b', &com_indice)) {
 	
-		if (argc < (com_indice+1)) {
+		if ((argc-1) < (com_indice+1)) {
 			display_help(3); 
 			return 1;
 		}
@@ -70,7 +77,7 @@ int main(int argc, char * argv[])
 	//Get indice or range indice
 	if (getcommand(argc, argv, 'i', &com_indice)) {
 	
-		if (argc < (com_indice+1)) {
+		if ((argc-1) < (com_indice+1)) {
 			display_help(5); 
 			return 1;
 		}
@@ -86,7 +93,7 @@ int main(int argc, char * argv[])
 		
 	}else if(getcommand(argc, argv, 's', &com_indice)) {
 	
-		if (argc < (com_indice+1)) {
+		if ((argc-1) < (com_indice+1)) {
 			display_help(7); 
 			return 1;
 		}
@@ -102,7 +109,7 @@ int main(int argc, char * argv[])
 		
 		if (getcommand(argc, argv, 'e', &com_indice)) {
 		
-			if (argc < (com_indice+1)) {
+			if ((argc-1) < (com_indice+1)) {
 				display_help(9); 
 				return 1;
 			}
@@ -122,7 +129,7 @@ int main(int argc, char * argv[])
 	
 	if (getcommand(argc, argv, 'k', &com_indice)) {
 	
-		if (argc < (com_indice+1)) {
+		if ((argc-1) < (com_indice+1)) {
 			display_help(11); 
 			return 1;
 		}
