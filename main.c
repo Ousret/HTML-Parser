@@ -13,12 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <curl/curl.h>
-
-#include "parser.h"
-
-CURL *curl_handle;
-CURLcode res;
+#include "main.h"
+#include "commands.h"
 
 /**
  * \fn int main(int argc, char * argv[])
@@ -26,83 +22,126 @@ CURLcode res;
  *
  * \param argc Number of arguments
  * \param argv String args 
- * \return 0 - Program went fine; -1 Something wrong
+ * \return 0 - Program went fine; 1 bad command; -1 Something wrong
  */
 int main(int argc, char * argv[])
 {
-	char url[256], balise_search[25];
-	int needed_occ = 0;
+	char url[256], balise_search[25], file[256], dest_file[256];
+	int needed_occ = 0, local_file = 0, start_occ = 0, end_occ = 0;
+	int com_indice = 0;
 	
-	if (argc == 4) {
-	
-		//Auto-Process
-		printf("Auto-Process\n");
+	if (getcommand(argc, argv, 'u', &com_indice)) { //Online
 		
-		if ( strlen(argv[1]) < 256) {
-		
-			strcpy(url, argv[1]);
-			
-		}else{
-			printf("<Us> Your url link is too long !\n");
-			return -1;
+		if (argc < (com_indice+1)) {
+			display_help(1); 
+			return 1;
 		}
 		
-		if (strlen(argv[2]) < 25) {
+		strcpy(url, argv[com_indice+1]);
 		
-			strcpy(balise_search, argv[2]);
-			
-		}else{
-		
-			printf("<Us> Your balise is too long !\n");
-			return -1;
-			
-		}
-		
-		needed_occ = atoi(argv[3]); 
-		
-		if (needed_occ <= 0) {
-			
-			printf("<Us> Your occ is not correct !\n");
-			return -1;
-		
-		}
-		stj_savehtml(url, "dest.html");
-		fprintf(stdout ,"%s\n", stj_getbalisecontent("dest.html", balise_search, needed_occ));
-		
-	}else{
+	}else if(getcommand(argc, argv, 'f', &com_indice)) { //Offline
 	
-		printf(" .----------------. .----------------. .----------------. \n");
-		printf("| .--------------. | .--------------. | .--------------. |\n");
-		printf("| |    _______   | | |  _________   | | |     _____    | |\n");
-		printf("| |   /  ___  |  | | | |  _   _  |  | | |    |_   _|   | |\n");
-		printf("| |  |  (__ \\_|  | | | |_/ | | \\_|  | | |      | |     | |\n");
-		printf("| |   '.___`-.   | | |     | |      | | |   _  | |     | |\n");
-		printf("| |  |`\\____) |  | | |    _| |_     | | |  | |_' |     | |\n");
-		printf("| |  |_______.'  | | |   |_____|    | | |  `.___.'     | |\n");
-		printf("| |              | | |              | | |              | |\n");
-		printf("| '--------------' | '--------------' | '--------------' |\n");
-		printf(" '----------------' '----------------' '----------------' \n\n");
-		printf("\t Authors: TAHRI Ahmed@Ousret; SIMON Jeremy@Jokoast\n");
-		printf("\t Project: Free HTML Parser in C\n");
-		printf("\t Link: http://www.github.com/Jokoast for new release\n\n");
-		printf("\t Command: ./htmlparser 'url' '<balise>' indice\n\n");
-		printf("<You> Type the url you need to parse: ");
-		scanf("%s", url);
+		if (argc < (com_indice+1)) {
+			display_help(2); 
+			return 1;
+		}
 		
-		printf("<You> What balise do we need to look for :");
-		scanf("%s", balise_search);
-		
-		printf("<You> What occurrence ? :");
-		scanf("%i", &needed_occ);
-		
-		stj_savehtml(url, "dest.html");
-		printf("<Us> What we found:\n> %s\n", stj_getbalisecontent("dest.html", balise_search, needed_occ));
+		strcpy(file, argv[com_indice+1]);
+	
 	}
 	
-	//stj_cleanup(); //Free Curl from his duty
+	//Get balise..
+	if (getcommand(argc, argv, 'b', &com_indice)) {
+	
+		if (argc < (com_indice+1)) {
+			display_help(3); 
+			return 1;
+		}
+		
+		strcpy(balise_search, argv[com_indice+1]);
+	
+	}else{
+	
+		display_help(4); 
+		return 1;
+		
+	}
+	
+	//Get indice or range indice
+	if (getcommand(argc, argv, 'i', &com_indice)) {
+	
+		if (argc < (com_indice+1)) {
+			display_help(5); 
+			return 1;
+		}
+		
+		needed_occ = atoi(argv[com_indice+1]);
+		
+		if (needed_occ == 0) {
+		
+			display_help(6);
+			return 1;
+			
+		}
+		
+	}else if(getcommand(argc, argv, 's', &com_indice)) {
+	
+		if (argc < (com_indice+1)) {
+			display_help(7); 
+			return 1;
+		}
+		
+		start_occ = atoi(argv[com_indice+1]);
+		
+		if (start_occ == 0) {
+		
+			display_help(8);
+			return 1;
+			
+		}
+		
+		if (getcommand(argc, argv, 'e', &com_indice)) {
+		
+			if (argc < (com_indice+1)) {
+				display_help(9); 
+				return 1;
+			}
+			
+			end_occ = atoi(argv[com_indice+1]);
+			
+		}
+		
+	}else {
+	
+		display_help(10); 
+		return 1;
+		
+	}
+	
+	//Optional, save filename
+	
+	if (getcommand(argc, argv, 'k', &com_indice)) {
+	
+		if (argc < (com_indice+1)) {
+			display_help(11); 
+			return 1;
+		}
+		
+		strcpy(dest_file, argv[com_indice+1]);
+		
+	}else {
+	
+		strcpy(dest_file, "out.html");
+			
+	}
+	
+	//If it's okay we can start the process
+	if (local_file == 0) {
+		stj_savehtml(url, dest_file);
+	}
+	
+	fprintf(stdout, "%s\n", stj_getbalisecontent(dest_file, balise_search, needed_occ));
+
 	
 	return 0;
 }
- 
- 
-

@@ -17,6 +17,9 @@
 
 #include "parser.h"
 
+CURL *curl_handle;
+CURLcode res;
+
 /**
  * \fn void stj_cleanup()
  * \brief Free cURL from his duty and close the program properly 
@@ -99,7 +102,7 @@ char * stj_savehtml(char url[256], char dest_file[256]) {
 	}
   
 	fclose(tmp_html); //Ferme le fichier temp
-
+	stj_cleanup(); //Free Curl from his duty
 	return msg;
 
 }
