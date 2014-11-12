@@ -117,7 +117,7 @@ char * stj_savehtml(char url[256], char dest_file[256]) {
  * \param indice Parse until we found n occurences and read it
  * \return Return data inside the balise at nth indice 
  */
-char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
+char * stj_getbalisecontent(char * src_html, char balise[50], int indice, int * status) {
 
 	unsigned int occ_balise = 0;
 	int i = 0, stage = 0, j = 0;
@@ -127,8 +127,13 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	long stream_state = 0, stream_last = 0;
 
 	char read_c_tmp = 0; 
+	
 	char * capture = malloc(1);
-	char * msg = malloc(1);
+	char * msg = malloc(100);
+	
+	char balise_mod[50];
+	
+	strcpy(balise_mod, balise);
 	
 	FILE * src_html_input = NULL;
 	
@@ -140,7 +145,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	
 		stream_state++; //We do have read one char.. counting..
 		
-		if (read_c_tmp == balise[stage]) {
+		if (read_c_tmp == balise_mod[stage]) {
 			
 			if (stage == 0) {
 			
@@ -179,7 +184,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 		}
 		
 		
-		if (stage == (strlen(balise))) {
+		if (stage == (strlen(balise_mod))) {
 			occ_balise++;
 			
 			if (occ_balise == indice) {
@@ -220,13 +225,13 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 	stage = 0;
 	
 	//Need to transform <li> to </li> for exemple
-	for (i = strlen(balise)+1; i > 0; i--) {
+	for (i = strlen(balise_mod)+1; i > 0; i--) {
 	
-		balise[i+1] = balise[i];
+		balise_mod[i+1] = balise_mod[i];
 		
 	}
 	
-	balise[1] = '/'; 
+	balise_mod[1] = '/'; 
 	
 	//fprintf(stdout, "We search for: %s\n", balise);
 	
@@ -236,7 +241,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 		stream_state++; //We do have read one char.. counting..
 		
 		//Checking if we hit the end
-		if (read_c_tmp == balise[stage]) {
+		if (read_c_tmp == balise_mod[stage]) {
 			
 			if (stage == 0) {
 			
@@ -269,7 +274,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 		}
 		
 		//If we find all char, if we match balise var
-		if (stage == strlen(balise)) {
+		if (stage == strlen(balise_mod)) {
 			
 			break;
 			
@@ -288,18 +293,22 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 		
 		//fprintf(stdout, "i: %i -- strlen balise: %i\n", i, strlen(balise));
 		
-		for (j = (i - strlen(balise))+1; j < i; j++) {
+		for (j = (i - strlen(balise_mod))+1; j < i; j++) {
 			
 			capture[j] = 0;
 			
 		}
 		
 		fclose(src_html_input);
+		*status = 1;
+		
 		return capture;
 		
 	}else{
 		
 		sprintf(msg, "There is nothing to find at %i occ in %s file for %s markup",indice, src_html, balise);
+		*status = 0;
+		
 		return msg;
 		
 	}

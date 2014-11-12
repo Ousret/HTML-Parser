@@ -137,15 +137,35 @@ int main(int argc, char * argv[])
 		stj_savehtml(url, file);
 	}
 	
+	int status_parse = 0;
+	
 	if ((start_occ != 0) && (end_occ != 0)) {
 		
-		for (i = 1; i < end_occ; i++) {
-			fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, i));
+		if (end_occ > start_occ) {
+			
+			for (i = start_occ; i < end_occ; i++) {
+				fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, i, &status_parse));
+			}
+			
+		}else{
+		
+			display_help(13);
+			return 1;
+			
 		}
 		
-	}else{
+	}else if(start_occ != 0){
 	
-		fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, needed_occ));
+		do {
+			//printf("balise: %s -- \n", balise_search);
+			fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, start_occ+i, &status_parse));
+			i++;
+			
+		}while(status_parse == 1);
+		
+	}else{
+		
+		fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, needed_occ, &status_parse));
 		
 	}
 	

@@ -71,6 +71,8 @@ void display_help(int code) {
 		case 12:
 			printf("\t Error: You need to specify at least -u 'url' or -f 'file' to parse something..\n\n");
 			break;
+		case 13:
+			printf("\t Error: End indice should be greater than start indice !\n\n");
 		default:
 			printf("\t Sample: htmlparser -u 'http://www.youtube.com' -m '<title>' -i 1\n\n");
 			break;
