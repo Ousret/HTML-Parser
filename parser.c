@@ -128,6 +128,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 
 	char read_c_tmp = 0; 
 	char * capture = malloc(1);
+	char * msg = malloc(1);
 	
 	FILE * src_html_input = NULL;
 	
@@ -298,7 +299,8 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 		
 	}else{
 		
-		return "Nothing found here, end of file.. Sorry !";
+		sprintf(msg, "There is nothing to find at %i occ in %s file for %s markup",indice, src_html, balise);
+		return msg;
 		
 	}
 

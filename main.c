@@ -26,9 +26,9 @@
  */
 int main(int argc, char * argv[])
 {
-	char url[256], balise_search[25], file[256], dest_file[256];
+	char url[256], balise_search[25], file[256];
 	int needed_occ = 0, local_file = 0, start_occ = 0, end_occ = 0;
-	int com_indice = 0;
+	int com_indice = 0, i = 0;
 	
 	if (getcommand(argc, argv, 'h', &com_indice)) {
 	
@@ -45,9 +45,10 @@ int main(int argc, char * argv[])
 		}
 		
 		strcpy(url, argv[com_indice+1]);
+		strcpy(file, "get.in");
 		
 	}else if(getcommand(argc, argv, 'f', &com_indice)) { //Offline
-		
+	
 		if ((argc-1) < (com_indice+1)) {
 			display_help(2); 
 			return 1;
@@ -55,10 +56,16 @@ int main(int argc, char * argv[])
 		
 		strcpy(file, argv[com_indice+1]);
 		local_file = 1;
+		
+	}else{
+		
+		display_help(12);
+		return 1;
+		
 	}
 	
-	//Get balise..
-	if (getcommand(argc, argv, 'b', &com_indice)) {
+	//Get markup..
+	if (getcommand(argc, argv, 'm', &com_indice)) {
 	
 		if ((argc-1) < (com_indice+1)) {
 			display_help(3); 
@@ -125,30 +132,22 @@ int main(int argc, char * argv[])
 		
 	}
 	
-	//Optional, save filename
-	
-	if (getcommand(argc, argv, 'k', &com_indice)) {
-	
-		if ((argc-1) < (com_indice+1)) {
-			display_help(11); 
-			return 1;
-		}
-		
-		strcpy(dest_file, argv[com_indice+1]);
-		
-	}else {
-	
-		strcpy(dest_file, "out.html");
-			
-	}
-	
 	//If it's okay we can start the process
 	if (local_file == 0) {
-		stj_savehtml(url, dest_file);
+		stj_savehtml(url, file);
 	}
 	
-	fprintf(stdout, "%s\n", stj_getbalisecontent(dest_file, balise_search, needed_occ));
-
+	if ((start_occ != 0) && (end_occ != 0)) {
+		
+		for (i = 1; i < end_occ; i++) {
+			fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, i));
+		}
+		
+	}else{
+	
+		fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, needed_occ));
+		
+	}
 	
 	return 0;
 }
