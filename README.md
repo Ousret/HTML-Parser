@@ -5,7 +5,7 @@ This (free) program allow you to parse all HTML pages even wierd one in order to
 data inside markup. You can specifie range parser or only one occurence.
 For now you can't parse to delete things, it's about to be done.
 
-What I need still need to do :
+What I still need need to do :
 * check for nasted markup to get the correct end.
 * delete range of markup with it's content or only at one occurence.
 
