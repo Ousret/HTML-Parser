@@ -109,15 +109,15 @@ char * stj_savehtml(char url[256], char dest_file[256]) {
 }
 
 /**
- * \fn char * stj_getbalisecontent(char * src_html, char balise[50], int indice)
- * \brief Get the data inside the html balise
+ * \fn int stj_getbalisecontent(char * src_html, char balise[50], int indice)
+ * \brief Get&Print the data inside the html balise
  *
  * \param src_html Name of the file to parse
  * \param balise ex: <li>, <head>, etc..
  * \param indice Parse until we found n occurences and read it
- * \return Return data inside the balise at nth indice 
+ * \return Return 1 if found something or 0 for nothing and -1 for unable to open file
  */
-char * stj_getbalisecontent(char * src_html, char balise[50], int indice, int * status) {
+int stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 
 	unsigned int occ_balise = 0;
 	int i = 0, stage = 0, j = 0;
@@ -128,8 +128,10 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice, int * 
 
 	char read_c_tmp = 0; 
 	
-	char * capture = malloc(1);
-	char * msg = malloc(100);
+	long capture_size = 0;
+	
+	char * capture = (char*) malloc(sizeof(char) * 5000); //Need to found a way to realloc without fatal error -_-"
+	char * msg = (char*) malloc(sizeof(char) * 1);
 	
 	char balise_mod[50];
 	
@@ -139,7 +141,7 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice, int * 
 	
 	src_html_input = fopen(src_html, "r");
 	
-	if (!src_html_input) return "Unable to read input html";
+	if (!src_html_input) return -1;
 	
 	while (fscanf(src_html_input, "%c", &read_c_tmp) == 1) {
 	
@@ -280,7 +282,8 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice, int * 
 			
 		} 
 		
-		realloc(capture, sizeof(capture)+1); //We need to expend the capture var in order to write more..
+		//capture_size+=3;
+		//realloc(capture, ((sizeof(char)) * i)); //We need to expend the capture var in order to write more..
 		
 		capture[i] = read_c_tmp;
 		capture[i+1] = '\0';
@@ -300,16 +303,20 @@ char * stj_getbalisecontent(char * src_html, char balise[50], int indice, int * 
 		}
 		
 		fclose(src_html_input);
-		*status = 1;
 		
-		return capture;
+		fprintf(stdout, "%s\n", capture);
+		free(capture);
+		
+		return 1;
 		
 	}else{
 		
-		sprintf(msg, "There is nothing to find at %i occ in %s file for %s markup",indice, src_html, balise);
-		*status = 0;
+		sprintf(msg, "There is nothing to find at %i occ in %s file for %s markup\n",indice, src_html, balise);
 		
-		return msg;
+		fprintf(stdout, "%s\n", msg);
+		free(msg);
+		
+		return 0;
 		
 	}
 

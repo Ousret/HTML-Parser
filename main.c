@@ -144,7 +144,11 @@ int main(int argc, char * argv[])
 		if (end_occ > start_occ) {
 			
 			for (i = start_occ; i < end_occ; i++) {
-				fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, i, &status_parse));
+				
+				if (stj_getbalisecontent(file, balise_search, i) != 1) {
+					break;
+				}
+				
 			}
 			
 		}else{
@@ -156,16 +160,11 @@ int main(int argc, char * argv[])
 		
 	}else if(start_occ != 0){
 	
-		do {
-			//printf("balise: %s -- \n", balise_search);
-			fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, start_occ+i, &status_parse));
-			i++;
-			
-		}while(status_parse == 1);
+		while (stj_getbalisecontent(file, balise_search, start_occ+i) != 0) i++;
 		
 	}else{
 		
-		fprintf(stdout, "%s\n", stj_getbalisecontent(file, balise_search, needed_occ, &status_parse));
+		stj_getbalisecontent(file, balise_search, needed_occ);
 		
 	}
 	
