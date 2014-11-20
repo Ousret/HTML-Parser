@@ -13,6 +13,7 @@ Author(s):
 * TAHRI Ahmed
 
 Idea from SIMON Jérémy: http://github.com/Jokoast
+Random error caused by realloc fix by BARRAULT Loic (1000 thanks)
 
 Check Wiki for how to use this HTMLParser.
 

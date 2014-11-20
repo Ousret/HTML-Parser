@@ -128,10 +128,8 @@ int stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 
 	char read_c_tmp = 0; 
 	
-	long capture_size = 0;
-	
-	char * capture = (char*) malloc(sizeof(char) * 5000); //Need to found a way to realloc without fatal error -_-"
-	char * msg = (char*) malloc(sizeof(char) * 1);
+	char * capture = malloc(sizeof(char) * 3); 
+	char * msg = malloc(sizeof(char) * 500);
 	
 	char balise_mod[50];
 	
@@ -283,7 +281,7 @@ int stj_getbalisecontent(char * src_html, char balise[50], int indice) {
 		} 
 		
 		//capture_size+=3;
-		//realloc(capture, ((sizeof(char)) * i)); //We need to expend the capture var in order to write more..
+		capture = realloc(capture, ( sizeof(char) * (i+2)) ); //We need to expend the capture var in order to write more..
 		
 		capture[i] = read_c_tmp;
 		capture[i+1] = '\0';
